@@ -5,7 +5,7 @@ from keyword_perf.payload import processor
 from tests.utils.pyspark_test_case import PySparkTestCase
 
 
-class TestProcessor(PySparkTestCase):
+class ProcessorTestCase(PySparkTestCase):
     def setUp(self):
         sample_data_path = os.path.join(os.path.dirname(__file__), '..', 'fixtures', 'data.tsv')
         self.sample_data = self.spark.read.csv(path=sample_data_path, header=True, sep='\t')
