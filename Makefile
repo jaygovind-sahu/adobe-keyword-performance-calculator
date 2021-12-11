@@ -14,3 +14,6 @@ run-local: package
 ubuntu-deploy: package
 	sudo apt-get update; sudo apt-get -y install make
 	aws s3 sync ./target/ s3://jays-apps/payloads/search-keyword-performance/
+
+test:
+	python -m unittest
