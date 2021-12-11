@@ -1,14 +1,12 @@
 from urllib.parse import urlparse, parse_qs
 
-from pyspark.sql import SparkSession
 from pyspark.sql import functions as sql_functions
 from pyspark.sql.types import StructType, StructField, StringType
 
-from search_keyword_performace.product_list_parser import ProductListParser
+from keyword_perf.payload.product_list_parser import ProductListParser
 
 
-def process(data_file):
-    spark = SparkSession.builder.getOrCreate()
+def process(data_file, spark):
     raw_df = spark.read.csv(path=data_file, sep=r'\t', header=True)
     ip_grouped_df = group_by_ip(raw_df)
     summarized_df = summarize_events(ip_grouped_df)
