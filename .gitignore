@@ -4,3 +4,4 @@
 *.pyc
 .env
 target
+tests/keyword_perf/output/

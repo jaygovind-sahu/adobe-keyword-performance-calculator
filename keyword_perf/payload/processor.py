@@ -4,6 +4,7 @@ from pyspark.sql import functions as sql_functions
 from pyspark.sql.types import StructType, StructField, StringType
 
 from keyword_perf.payload.product_list_parser import ProductListParser
+from keyword_perf.payload.output_writer import write
 
 
 def process(data_file, spark):
@@ -25,8 +26,9 @@ def process(data_file, spark):
                     sql_functions.when(search_engine_df.final_event == 1,
                                        get_revenue(search_engine_df.final_product)).otherwise(0))
     keyword_performance = revenue_df.groupby([revenue_df.search_engine, revenue_df.keyword])\
-        .agg(sql_functions.sum(revenue_df.revenue).alias('revenue'))
-    keyword_performance.show()
+        .agg(sql_functions.sum(revenue_df.revenue).alias('revenue')) \
+        .withColumn('process_date', sql_functions.current_date())
+    write(keyword_performance, data_file)
 
 
 def group_by_ip(raw_df):
