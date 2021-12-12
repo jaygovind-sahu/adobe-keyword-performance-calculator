@@ -3,14 +3,6 @@ name: Run Tests
 on: push
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-
-      - name: Run Lint
-        run: make lint
   test:
     runs-on: ubuntu-latest
     steps:

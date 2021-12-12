@@ -19,8 +19,7 @@ install-dependencies:
 	pip install -r requirements.txt
 
 lint:
-	pip install prospector
 	prospector keyword_perf
 
-test: install-dependencies
+test: install-dependencies lint
 	python -m unittest
