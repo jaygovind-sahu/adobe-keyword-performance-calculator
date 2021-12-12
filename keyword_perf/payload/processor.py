@@ -33,7 +33,7 @@ def process(data_file, spark):
 
 def group_by_ip(raw_df):
     """
-
+    Group by IP address, and collect events, products and referrers as lists
     """
     return raw_df.groupby(raw_df.ip).agg(
         sql_functions.collect_list(raw_df.event_list).alias('event_list'),
@@ -44,7 +44,7 @@ def group_by_ip(raw_df):
 
 def summarize_events(ip_grouped_df):
     """
-
+    Derive the final event, final product and initial referrer from lists
     """
     return ip_grouped_df \
         .withColumn('final_product',
@@ -61,7 +61,7 @@ def summarize_events(ip_grouped_df):
 
 def parse_referrer(search_referrer):
     """
-
+    Parse search engine and keyword data from referrer
     """
     parsed_url = urlparse(search_referrer)
     queries = parse_qs(parsed_url.query)
@@ -71,7 +71,7 @@ def parse_referrer(search_referrer):
 
 def parse_search_engine_data(summarized_df):
     """
-
+    Select all th required fields along with extracting the search engine data
     """
     referrer_data_schema = StructType([
         StructField("search_engine", StringType(), False),
@@ -87,6 +87,6 @@ def parse_search_engine_data(summarized_df):
 @sql_functions.udf
 def get_revenue(product_string):
     """
-
+    Parse revenue information from a product list string
     """
     return ProductListParser(product_string).total_revenue if product_string else 0

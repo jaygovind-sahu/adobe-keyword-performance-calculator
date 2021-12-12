@@ -2,6 +2,9 @@ import pathlib
 
 
 def write(keyword_performance_df, input_file_path):
+    """
+    Write output
+    """
     keyword_performance_df.show()
     in_path = pathlib.Path(input_file_path)
     out_path = in_path.parent.joinpath('..', 'output', 'SearchKeywordPerformance')

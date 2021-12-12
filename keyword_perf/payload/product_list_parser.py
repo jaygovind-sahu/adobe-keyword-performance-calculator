@@ -1,5 +1,8 @@
 class ProductListParser:
     def __init__(self, product_list_string):
+        """
+        Parse details from a product list string
+        """
         parts = product_list_string.split(';')
         self.category = parts[0]
         self.product_name = parts[1]
