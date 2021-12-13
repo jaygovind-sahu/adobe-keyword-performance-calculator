@@ -65,5 +65,5 @@ Deployment is done through GitHub Actions.
 ## Production Environment (AWS)
 * Code is deployed into an S3 bucket
 * Input file is uploaded into an S3 bucket
-* An event is fired when file is uploaded to S3 to kick of a Lambda function
+* An event is fired when input file is uploaded to S3 to kick off a Lambda function
 * Above Lambda function in turn spins up an EMR cluster and adds a step for processing - passing the input file path from `event`
